@@ -1,5 +1,58 @@
 #include "myfile.h"
 
+void fprint(FILE *fptr){
+	
+	// prints every character of file until end of file
+	int c;
+	while((c = fgetc(fptr)) != EOF){
+		putchar(c);
+	}
+}
+
+long fsize(FILE *fptr){
+	
+	// saving file pointer
+	long curr = ftell(fptr);
+	
+	// getting filesize
+	fseek(fptr, 0, SEEK_END);
+	long size = ftell(fptr);
+	
+	// restoring file pointer and return
+	fseek(fptr, curr, SEEK_SET);
+	return size;
+}
+
+void fcpy(FILE *a, FILE *b, long length){
+	
+	// copies characters until length or end of file
+	int c;
+	long i = 0;
+	while((c = fgetc(a)) != EOF && i++ < length){
+		fputc(c, b);
+	}
+}
+
+long fcount(FILE *fptr, int sym){
+	
+	// getting current file pointer and setting file pointer to beginning of file
+	long curr = ftell(fptr);
+	fseek(fptr, 0, SEEK_SET);
+	
+	// go through file until we hit file pointer, count the occurence of sym
+	long count = 0;
+	int c;
+	while((c = fgetc(fptr)) != EOF && curr--){
+		if(c == sym){
+			++count;
+		}
+	}
+	
+	// restore file pointer and return result
+	fseek(fptr, curr, SEEK_SET);
+	return count;
+}
+
 int fsearch(FILE *fptr, char *str){
 	
 	// allocate memory to hold null terminated string stored in str
@@ -38,6 +91,10 @@ int fsearch(FILE *fptr, char *str){
 	return 0;
 }
 
+long flinenum(FILE *fptr){
+	return fcount(fptr, '\n') + 1;
+}
+
 int fline(FILE *fptr, int linenumber){
 	
 	// sets the filepointer to beginning of file
@@ -56,40 +113,27 @@ int fline(FILE *fptr, int linenumber){
 	return 0;
 }
 
-long fsize(FILE *fptr){
-	
-	// saving file pointer
-	long tmp = ftell(fptr);
-	
-	// getting filesize
-	fseek(fptr, 0, SEEK_END);
-	long size = ftell(fptr);
-	
-	// restoring file pointer and return
-	fseek(fptr, tmp, SEEK_SET);
-	return size;
+void flinestart(FILE *fptr){
+	long line = flinenum(fptr);
+	fline(fptr, line);
 }
 
-void fcpy(FILE *a, FILE *b, long length){
-	char c;
-	long i = 0;
-	while((c = fgetc(a)) != EOF && i++ < length){
-		fputc(c, b);
-	}
-}
-
-void fprint(FILE *fptr){
-	char c;
-	while((c = fgetc(fptr)) != EOF){
-		putchar(c);
-	}
-}
-
-void freplace(FILE *a, FILE *b, char *search, char *replace){
-	fseek(a, 0, SEEK_SET);
-	fseek(b, 0, SEEK_SET);
-	/*
-	while(fsearch(a, search)){
-		fcpy(a, )
-	}*/
+long flinesize(FILE *fptr){
+	
+	// save current file pointer
+	long curr = ftell(fptr);
+	
+	// current line we are in
+	long line = flinenum(fptr);
+	
+	// getting line start and line end
+	flinestart(fptr);
+	long start = ftell(fptr);
+	
+	fline(fptr, line + 1);
+	long end = ftell(fptr);
+	
+	// restore file pointer and return difference
+	fseek(fptr, curr, SEEK_SET);
+	return end - start;
 }
