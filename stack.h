@@ -1,27 +1,25 @@
 #ifndef STACK_H
 #define STACK_H
 
-#include <stdlib.h>
-#include <string.h>
-
 typedef struct{
-	void *memory;			// pointer to dynamic stack memory
-	int allocated_elements;	// how many elements fit into allocated memory pointed to by memory
+	void *memory;				// pointer to dynamic stack memory
+	unsigned int max_elements;	// how many elements fit into allocated memory pointed to by memory
 	
-	int elements;			// number of elements on the stack
-	int elem_size;			// the size of one stack element
+	unsigned int num_elements;	// number of elements on the stack
+	unsigned int elem_size;		// the size of one stack element
 	
-	char *ptr;				// the stack pointer used for push and pop
-	int growth;				// how much the stack grows after beeing filled
+	char *ptr;					// the stack pointer used for push and pop
+	
+	unsigned int growth;		// how much the stack grows after beeing filled
 }stack_t;
 
 /* creates a new stack object
 */
-stack_t *stk_new(unsigned int elem_size, int growth);
+stack_t *stk_new(unsigned int elem_size, unsigned int growth);
 
 /* initializes a stack
 */
-void stk_init(stack_t *s, unsigned int elem_size, int growth);
+void stk_init(stack_t *s, unsigned int elem_size, unsigned int growth);
 
 /* push data onto stack
 */
@@ -39,4 +37,4 @@ void stk_free(stack_t *s);
 */
 void stk_delete(stack_t *s);
 
-#endif
+#endif // STACK_H

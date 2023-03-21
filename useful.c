@@ -1,4 +1,26 @@
 #include "useful.h"
+#include <time.h>
+#include <stdlib.h>
+
+int clampRangei(int i, int min, int max){
+	int t = i < min ? min : i;
+	return i > max ? max : t;
+}
+
+float clampRangef(float f, float min, float max){
+	float t = f < min ? min : f;
+	return f > max ? max : t;
+}
+
+float clampf(float f){
+	float t = f < 0 ? 0 : f;
+	return f > 1 ? 1 : t;
+}
+
+/* alternative
+float clampf(float f){
+	return 0 + (f >= 1.0) + f * (f < 1.0);
+}*/
 
 void delay(int millis){
 	clock_t start = clock();
@@ -6,7 +28,14 @@ void delay(int millis){
 		;
 }
 
-int absolute(int n){
+float absf(float n){
+	if(n < 0){
+		return -n
+	}
+	return n
+}
+
+int absi(int n){
 	if(n < 0)
 		return -n;
 	return n;

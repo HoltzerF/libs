@@ -2,8 +2,6 @@
 #define MYFILE_H
 
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
 /* prints a file from current file pointer to console
  */
@@ -49,4 +47,4 @@ void flinestart(FILE *fptr);
  */
 long flinesize(FILE *fptr);
 
-#endif
+#endif // MYFILE_H

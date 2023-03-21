@@ -1,10 +1,6 @@
 #ifndef USEFUL_H
 #define USEFUL_H
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-
 // some min and max macros
 #define min(a, b) (a < b ? a : b)
 #define max(a, b) (a < b ? b : a)
@@ -12,11 +8,18 @@
 #define min3(a, b, c) (a < b ? min(a, c) : min(b, c))
 #define max3(a, b, c) (a < b ? max(b, c) : max(a, c))
 
+int clampRangei(int i, int min, int max);
+float clampRangef(float f, float min, float max);
+float clampf(float f);
+
 // delays functions by some milliseconds
 void delay(int millis);
 
+// getting the absolute value of an float
+float absf(float n);
+
 // getting the absolute value of an integer
-int absolute(int n);
+int absi(int n);
 
 // returns the greates common divisor of two positive numbers
 int gcdPos(int a, int b);

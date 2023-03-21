@@ -1,4 +1,6 @@
 #include "myfile.h"
+#include <string.h>
+#include <stdlib.h>
 
 void fprint(FILE *fptr){
 	
