@@ -58,4 +58,4 @@ int mod(int n, int m);
 // linear interpolates values by an amount t
 float learp(float a, float b, float t);
 
-#endif
+#endif // USEFUL_H
