@@ -201,23 +201,19 @@ void cross3f(float *v0, float *v1, float *v2){
 // -------------
 
 float len2f(float *v){
-	return v[0] * v[0] + v[1] * v[1];
-	// "alternative" return dot2f(v, v);
+	return sqrtf(v[0] * v[0] + v[1] * v[1]);
 }
 
 float len3f(float *v){
-	return v[0] * v[0] + v[1] * v[1] + v[2] * v[2];
+	return sqrtf(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
 }
 
 float len4f(float *v){
-	return v[0] * v[0] + v[1] * v[1] + v[2] * v[2] + v[3] * v[3];
+	return sqrtf(v[0] * v[0] + v[1] * v[1] + v[2] * v[2] + v[3] * v[3]);
 }
 
 float lennf(float *v, int n){
-	float sum = 0;
-	while(--n >= 0){
-		sum += v[n] * v[n];
-	}
+	return 0;
 }
 
 // -------------
